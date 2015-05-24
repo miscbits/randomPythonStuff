@@ -14,7 +14,7 @@ def help(guessesTaken):
 def endGame(thePlayerWon, numberToGuess, numOfGuesses=3):
 	if thePlayerWon and numOfGuesses == 1:
 		print("Congratulations! You won in 1 guess")
-	if thePlayerWon:
+	elif thePlayerWon:
 		print("Congratulations! You won in {} guesses".format(str(numOfGuesses)))
 	else:
 		print("Sorry! The number you needed to guess was {}".format(str(numberToGuess)))
@@ -25,8 +25,8 @@ def start():
 
 def game(): 
 	numToGuess = str(getRandomInt())
-	print(numToGuess)
 	guessesTaken = []
+	thePlayerWon = False
 	while len(guessesTaken) < 3:
 		guess = input("Make a guess between 1 and 10: ")
 		if str(guess)=="HELP":
@@ -46,10 +46,12 @@ def game():
 				continue
 			elif str(guess) == str(numToGuess):
 				print("You guessed correctly!")
-				endGame(True, numToGuess, len(guessesTaken)+1)
+				guessesTaken.append(guess)
+				thePlayerWon = True
+				break
 		except: 
 			print("Please only enter numbers between 1 and 10 or 'HELP' if you need help")
-	endGame(False, numToGuess)
+	endGame(thePlayerWon, numToGuess, len(guessesTaken))
 
 start()
 
